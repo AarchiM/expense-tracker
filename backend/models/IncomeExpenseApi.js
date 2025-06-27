@@ -1,25 +1,18 @@
 import mongoose from "mongoose";
 
-const ExpenseSchema = new mongoose.Schema({
-    ExpenseSource: {
+const transactionSchema = new mongoose.Schema({
+    TransactionSource: {
         type: String,
         required: true,
     },
-    ExpenseAmount: {
+    TransactionAmount: {
         type: Number,
         required: true,
     },
-}, { timestamps: true });
-
-const IncomeSchema = new mongoose.Schema({
-    IncomeSource: {
+    TransactionType: {
         type: String,
         required: true,
-    },
-    IncomeAmount: {
-        type: Number,
-        required: true,
-    },
+    }
 },{ timestamps: true})
 
 const UserDetailSchema = new mongoose.Schema({
@@ -27,8 +20,7 @@ const UserDetailSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    income: [IncomeSchema],
-    expense: [ExpenseSchema]
+    transaction: [transactionSchema]
 }, {timestamps: true})
 
 const Income_Expenses = mongoose.model("Income_Expenses", UserDetailSchema);

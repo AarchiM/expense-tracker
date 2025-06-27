@@ -7,20 +7,21 @@ const routes = Router();
 routes.post('/addIncome', async (req, res) => {
      try {
          const userExist = await Income_Expenses.findOne({ email: req.body.email });
-         const incomeDetail = {
-            IncomeSource: req.body.IncomeSource,
-            IncomeAmount: req.body.IncomeAmount,
+         const transactionDetail = {
+            TransactionSource: req.body.IncomeSource,
+            TransactionAmount: req.body.IncomeAmount,
+            TransactionType: "income"
         }
          if (userExist)
          {
-            userExist.income.push(incomeDetail);
-             await userExist.save();
-             res.status(200).json({ message: "Income added to existing user." });
+            userExist.transaction.push(transactionDetail);
+            await userExist.save();
+            res.status(200).json({ message: "Income added to existing user." });
          }
          else {
              const newUser = new Income_Expenses({
                  email: req.body.email,
-                 income: [incomeDetail]
+                 transaction: [transactionDetail]
              });
 
              await newUser.save();
@@ -37,20 +38,21 @@ routes.post('/addExpense', async (req, res) =>
 {
     try {
         const userExist = await Income_Expenses.findOne({ email: req.body.email });
-        const expenseDetail = {
-            ExpenseSource: req.body.ExpenseSource,
-            ExpenseAmount: req.body.ExpenseAmount,
+        const transactionDetail = {
+            TransactionSource: req.body.ExpenseSource,
+            TransactionAmount: req.body.ExpenseAmount,
+            TransactionType: "expense"
         }
         if (userExist)
         {
-            userExist.expense.push(expenseDetail);
+            userExist.transaction.push(transactionDetail);
             await userExist.save();
             res.status(200).json({message: "Expense added to existing user."})
         } else
         {
             const newUser = new Income_Expenses({
                 email: req.body.email,
-                expense: [expenseDetail],
+                transaction: [transactionDetail],
             })
 
             await newUser.save();
