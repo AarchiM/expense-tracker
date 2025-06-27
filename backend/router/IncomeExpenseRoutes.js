@@ -1,0 +1,107 @@
+import { Router } from 'express';
+import Income_Expenses from '../models/IncomeExpenseApi.js';
+import {body, validationResult} from 'express-validator'
+
+const routes = Router();
+
+routes.post('/addIncome', async (req, res) => {
+     try {
+         const userExist = await Income_Expenses.findOne({ email: req.body.email });
+         const incomeDetail = {
+            IncomeSource: req.body.IncomeSource,
+            IncomeAmount: req.body.IncomeAmount,
+        }
+         if (userExist)
+         {
+            userExist.income.push(incomeDetail);
+             await userExist.save();
+             res.status(200).json({ message: "Income added to existing user." });
+         }
+         else {
+             const newUser = new Income_Expenses({
+                 email: req.body.email,
+                 income: [incomeDetail]
+             });
+
+             await newUser.save();
+             res.status(201).json({ message: "New user created and income added." });
+         }
+         
+     } catch (error) {
+        console.log("Error: ",error);
+        res.status(500).json({ error: "Internal server error" });
+     }
+})
+
+routes.post('/addExpense', async (req, res) =>
+{
+    try {
+        const userExist = await Income_Expenses.findOne({ email: req.body.email });
+        const expenseDetail = {
+            ExpenseSource: req.body.ExpenseSource,
+            ExpenseAmount: req.body.ExpenseAmount,
+        }
+        if (userExist)
+        {
+            userExist.expense.push(expenseDetail);
+            await userExist.save();
+            res.status(200).json({message: "Expense added to existing user."})
+        } else
+        {
+            const newUser = new Income_Expenses({
+                email: req.body.email,
+                expense: [expenseDetail],
+            })
+
+            await newUser.save();
+            res.status(200).json({message: "New user created and expense added."})
+
+        }
+    } catch (error) {
+        console.log("Error: ",error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+routes.get('/usersData', [
+    body('email').isEmail().withMessage("Please Enter Correct Email!!")
+  ], async (req, res) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).json({ errors: result.array() });
+    }
+  
+    const { email } = req.body;
+  
+    try {
+      const data = await Income_Expenses.findOne({ email });
+      if (!data) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.json(data);
+    } catch (error) {
+      console.error("Error: ", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+routes.get('/userInfo', async (req, res) =>
+{
+    const { email } = req.body;
+    try {
+        const data = await Income_Expenses.findOne({ email });
+        if (!data) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const totalIncome = data.income.reduce((acc, amount) => {return acc + amount.IncomeAmount}, 0);
+        const totalExpense = data.expense.reduce((acc, amount) => {return acc + amount.ExpenseAmount}, 0);
+        const totalBalance = totalIncome - totalExpense;
+        
+        res.json({totalIncome, totalExpense, totalBalance});
+        
+    } catch (error) {
+        console.error("Error: ", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+export default routes;
