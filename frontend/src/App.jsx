@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-import { useGetAddExpenseMutation } from '../store/TransactionApi';
+import Navbar from "./components/Navbar"
+import { useGetAddExpenseMutation } from './store/transactionApi.js';
+import { Outlet } from 'react-router-dom';
 
 function App()
 {
@@ -9,12 +11,12 @@ function App()
   {
     try {
       
-      const res = await getAddExpense({
-        email: "aarchi@gmail.com",
-        ExpenseSource: "Coaching Fees",
-        ExpenseAmount: 1800
-      }).unwrap();
-      console.log("Res: ", res)
+      // const res = await getAddExpense({
+      //   email: "aarchi@gmail.com",
+      //   ExpenseSource: "Coaching Fees",
+      //   ExpenseAmount: 1800
+      // }).unwrap();
+      // console.log("Res: ", res)
       
        
     } catch (error) {
@@ -26,7 +28,10 @@ function App()
     getData();
 },[])
   return (
-    <div>Hello</div>
+    <div className="text-gray-600 dark:text-gray-300">
+      <Navbar/>
+      <Outlet/>
+    </div>
   )
 }
 

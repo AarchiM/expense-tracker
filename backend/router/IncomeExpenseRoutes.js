@@ -106,4 +106,20 @@ routes.post('/userInfo', async (req, res) =>
         res.status(500).json({ error: "Internal server error" });
     }
 })
+
+routes.post('/getAllTransaction', async (req, res) =>{
+    const {email} = req.body;
+    try {
+        const data = await Income_Expenses.findOne({ email });
+        if (!data) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        return res.json(data.transaction);
+    } catch (error) {
+        console.error("Error: ", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
 export default routes;
