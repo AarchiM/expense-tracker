@@ -65,7 +65,7 @@ routes.post('/addExpense', async (req, res) =>
     }
 })
 
-routes.get('/usersData', [
+routes.post('/usersData', [
     body('email').isEmail().withMessage("Please Enter Correct Email!!")
   ], async (req, res) => {
     const result = validationResult(req);
@@ -87,7 +87,7 @@ routes.get('/usersData', [
     }
   });
 
-routes.get('/userInfo', async (req, res) =>
+routes.post('/userInfo', async (req, res) =>
 {
     const { email } = req.body;
     try {
@@ -95,8 +95,8 @@ routes.get('/userInfo', async (req, res) =>
         if (!data) {
             return res.status(404).json({ error: "User not found" });
         }
-        const totalIncome = data.income.reduce((acc, amount) => {return acc + amount.IncomeAmount}, 0);
-        const totalExpense = data.expense.reduce((acc, amount) => {return acc + amount.ExpenseAmount}, 0);
+        const totalIncome = (data??[]).transaction.reduce((acc, amount) => {return amount.TransactionType === 'income' ? acc + amount.TransactionAmount: acc + 0}, 0);
+        const totalExpense = (data??[]).transaction.reduce((acc, amount) => {return amount.TransactionType === 'expense' ? acc + amount.TransactionAmount: acc+0}, 0);
         const totalBalance = totalIncome - totalExpense;
         
         res.json({totalIncome, totalExpense, totalBalance});
