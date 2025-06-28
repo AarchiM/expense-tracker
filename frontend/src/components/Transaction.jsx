@@ -19,7 +19,6 @@ const Transaction = () => {
     getData();
   }, []);
 
-  console.log("getAllTransaction: ", transaction);
   return (
     <div className="px-5 acquisitions flex flex-col lg:flex-row gap-5">
       <div className="lg:w-1/2 flex flex-col items-center justify-center rounded">

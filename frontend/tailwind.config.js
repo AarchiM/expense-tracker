@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         primary_dark: "rgb(31, 31, 31)",
+        primary_blue: "rgb(30, 16, 93)",
         secondary_dark: "rgb(52, 52, 52)",
         border_light: "#e5e7eb",
         primary_pink: "#FF6384",

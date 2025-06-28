@@ -16,7 +16,7 @@ const Navbar = () => {
   }, [mode]);
 
   return (
-    <div className="dark:bg-primary_dark dark:text-white shadow-md dark:shadow-gray-900 flex justify-between p-5">
+    <div className="sticky top-0 dark:bg-primary_dark dark:text-white shadow-md dark:shadow-gray-900 flex justify-between p-5">
         <div className="flex flex-row gap-10">
         <div className="px-1 border-black dark:border-border_light border rounded-xl">
             <h1>ET</h1>

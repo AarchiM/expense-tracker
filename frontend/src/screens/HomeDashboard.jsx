@@ -13,46 +13,6 @@ const HomeDashboard = () => {
   const [getTransactionAmount] = useGetTransactionAmountMutation();
   const heading = "Total Expense";
   const [result, setResult] = useState();
-  
-  const BarChartJs = () => {
-    const data = [
-      { income: 2010, date: "12/04/2025" },
-      { income: 1020, date: "12/04/2025" },
-      { income: 150, date: "12/04/2025" },
-      { income: 2025, date: "12/04/2025" },
-      { income: 3022, date: "12/04/2025" },
-      { income: 2030, date: "12/04/2025" },
-      { income: 600, date: "12/04/2025" },
-      { income: 2010, date: "12/04/2025" },
-      { income: 1020, date: "12/04/2025" },
-      { income: 150, date: "12/04/2025" },
-      { income: 2025, date: "12/04/2025" },
-      { income: 3022, date: "12/04/2025" },
-      { income: 2030, date: "12/04/2025" },
-      { income: 600, date: "12/04/2025" },
-      { income: 2010, date: "12/04/2025" },
-      { income: 1020, date: "12/04/2025" },
-      { income: 150, date: "12/04/2025" },
-      { income: 2025, date: "12/04/2025" },
-      { income: 3022, date: "12/04/2025" },
-      { income: 2030, date: "12/04/2025" },
-      { income: 600, date: "12/04/2025" },
-    ];
-
-    new Chart(document.getElementById("bar-expenses"), {
-      type: "bar",
-      data: {
-        labels: data.map((row) => row.date),
-        datasets: [
-          {
-            label: heading,
-            data: data.map((row) => row.income),
-            backgroundColor: ["rgb(56, 44, 142)"],
-          },
-        ],
-      },
-    });
-  };
 
   const PieChart = async () => {
     const result = await getTransactionAmount("aarchi@gmail.com").unwrap(); 
@@ -78,35 +38,9 @@ const HomeDashboard = () => {
     });
   };
 
-  const IncomeChart = () => {
-    const data = {
-      labels: ["Balance", "Income", "Expenses"],
-      datasets: [
-        {
-          label: "Financial Overview",
-          data: [300, 50, 100, 200],
-          backgroundColor: [
-            "rgb(30, 16, 93)",
-            "rgb(21, 42, 181)",
-            "rgb(95, 77, 168)",
-            "rgb(182, 180, 236)",   
-          ],
-          hoverOffset: 4,
-        },
-      ],
-    };
-    new Chart(document.getElementById("incomechart"), {
-      type: "doughnut",
-      data: data,
-    });
-  };
-
   useEffect(() => {
     PieChart();
-    BarChartJs();
-    IncomeChart()
   }, []);
-
 
   return (
     <div className="">
