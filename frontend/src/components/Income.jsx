@@ -9,8 +9,10 @@ const Income = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
   const [tranData, setTranData] = useState();
 
-  const IncomeChart = async () => {
-    const result = await getAllTransaction("aarchi@gmail.com");
+  const IncomeChart = async () =>
+  {
+    const userEmail = JSON.parse(localStorage.getItem('email'))
+    const result = await getAllTransaction(userEmail);
     const response = result.data.filter(
       (tran) => tran.TransactionType == "income"
     );

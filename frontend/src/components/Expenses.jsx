@@ -10,9 +10,11 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 const Expenses = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
   const [transactions, setTransactions] = useState();
-
-  const BarChartJs = async () => {
-    const result = await getAllTransaction("aarchi@gmail.com");
+  const userEmail = JSON.parse(localStorage.getItem('email'))
+  
+  const BarChartJs = async () =>
+  {
+    const result = await getAllTransaction(userEmail);
     setTransactions(result.data);
     const response = result?.data?.filter(
       (row) => row.TransactionType == "expense"

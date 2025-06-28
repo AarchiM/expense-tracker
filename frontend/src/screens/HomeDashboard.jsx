@@ -12,10 +12,13 @@ import {
 const HomeDashboard = () => {
   const [getTransactionAmount] = useGetTransactionAmountMutation();
   const heading = "Total Expense";
+  const userName = JSON.parse(localStorage.getItem('name'));
+  const userEmail = JSON.parse(localStorage.getItem('email'));
+  
   const [result, setResult] = useState();
 
   const PieChart = async () => {
-    const result = await getTransactionAmount("aarchi@gmail.com").unwrap(); 
+    const result = await getTransactionAmount(userEmail).unwrap(); 
     setResult(result);
     const data = {
       labels: ["Balance", "Income", "Expenses"],
@@ -49,19 +52,19 @@ const HomeDashboard = () => {
           <div className="">
             <PiUserCirclePlusThin size={40} />
           </div>
-          <p>Hello Aarchi, Welcome</p>
+          <p>Hello {userName}, Welcome</p>
         </div>
         {/* <hr className="border border-[1px solid red]" /> */}
         <div className="flex justify-between gap-6 p-5 ">
-          <div className="p-5 items-center flex flex-col items-center w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
+          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
             <h1>Total Income</h1>
             <p>INR {result?.totalIncome}</p>
           </div>
-          <div className="p-5 items-center flex flex-col items-center w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
+          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
             <h1>Total Expenses</h1>
             <p>INR {result?.totalExpense}</p>
           </div>
-          <div className="p-5 items-center flex flex-col items-center w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
+          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-secondary_dark bg-white rounded-lg">
             <h1>Current Balance</h1>
             <p>INR {result?.totalBalance}</p>
           </div>

@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { darkMode, lightMode } from "../store/darkmodeSlice";
 import { MdDarkMode, MdOutlineNightlight } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = () =>
+{
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('Authtoken'));
+  const navigate = useNavigate();
   const mode = useSelector((state) => state.mode.mode);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,6 +18,14 @@ const Navbar = () => {
     }
   }, [mode]);
 
+  const HandleLogoutUser = () =>
+  {
+    localStorage.removeItem('email')
+    localStorage.removeItem('Authtoken')
+    localStorage.removeItem('name')
+    setLoggedIn(false);
+    navigate('/');
+  }
   return (
     <div className="sticky top-0 dark:bg-primary_dark dark:text-white shadow-md dark:shadow-gray-900 flex justify-between p-5">
         <div className="flex flex-row gap-10">
@@ -26,7 +37,12 @@ const Navbar = () => {
                 <li><Link to='/income'>Income</Link></li>
                 <li><Link to='/expenses'>Expenses</Link></li>
             </ul>
-        </div>
+      </div>
+      {loggedIn ?<div>
+        <button onClick={HandleLogoutUser}>
+          Logout
+        </button>
+      </div>:<></>}
         <div className="border px-1 flex justify-center rounded-xl">
             {mode === "light" ? (
             <button onClick={() => dispatch(darkMode())}>

@@ -15,15 +15,15 @@ createRoot(document.getElementById('root')).render(
 <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App/>}>
-          <Route path='' element={<Login />}/>
-          <Route path='/dashboard' element={<HomeDashboard />}/>
+          <Route path='/' element={<Login />}/>
           <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/' element={<App/>}>
+          <Route path='/dashboard' element={<HomeDashboard />}/>
           <Route path='/income' element={<IncomePage/>}/>
           <Route path='/expenses' element={<ExpensesPage/>}/>
           <Route />
         </Route>
       </Routes>
     </BrowserRouter>
-  </Provider>,
+</Provider>,
 )

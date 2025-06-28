@@ -2,6 +2,7 @@ import { Router } from "express";
 import { body, validationResult } from 'express-validator';
 import User from "../models/UserModel.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 const routes = Router();
 
 routes.post('/signUp', [
@@ -10,7 +11,7 @@ routes.post('/signUp', [
 ], async (req, res) =>
 {
     const errors = validationResult(req);
-    if (!errors.isEmpty)
+    if (!errors.isEmpty())
     {
         return res.status(400).json({ error: errors.array() })
     }
@@ -19,16 +20,19 @@ routes.post('/signUp', [
     {
         const existUser = await User.findOne({ email });
         if (existUser)
-        {
-            return res.status(200).json({ message: "User Already Exist!!" });
-        }
-        const hashPass = await bcrypt.hash(password, 10)
+            {
+                return res.status(200).json({ message: "User Already Exist!!" });
+            }
+            const hashPass = await bcrypt.hash(password, 10)
+            const newUser = new User({
+                name, email, password: hashPass,
+            })
+        await newUser.save();
 
-        const newUser = new User({
-            name, email, password: hashPass
-        })
-        newUser.save();
-        res.status(201).json({ success: true });
+        const userExist = await User.findOne({ email });
+        const token = jwt.sign({id: userExist._id}, process.env.SECRET_KEY, { expiresIn: '1d' });
+        res.status(201).json({ success: true, Authtoken: token, name });
+
     } catch (error)
     {
         console.log("Error: ", error);
@@ -59,9 +63,8 @@ routes.post('/login', [
         {
             return res.status(400).json({ success: false, message: "Incorrect Password!!" });     
         }
-
-        res.status(200).json(userExist);
-
+        const token = jwt.sign({id: userExist._id}, process.env.SECRET_KEY, { expiresIn: '1d' });
+        res.status(201).json({ success: true, Authtoken: token, name: userExist.name });
 
     } catch (error) {
         

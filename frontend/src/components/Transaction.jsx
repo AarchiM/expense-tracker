@@ -8,8 +8,10 @@ const Transaction = () => {
   const [transaction, setTransaction] = useState();
 
   const getData = async () => {
-    try {
-      const result = await getAllTransaction("aarchi@gmail.com");
+    try
+    {
+      const userEmail = JSON.parse(localStorage.getItem('email'))
+      const result = await getAllTransaction(userEmail);
       setTransaction(result.data);
     } catch (error) {
       console.log(error);

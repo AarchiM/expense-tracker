@@ -14,19 +14,21 @@ const IncomePage = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
   const [getAddIncome] = useGetAddIncomeMutation();
   const chartRef = useRef(null);
+  const userEmail = JSON.parse(localStorage.getItem('email'))
 
-  const BarChartJs = async () => {
-    const response = await getAllTransaction("aarchi@gmail.com");
+  const BarChartJs = async () =>
+  {
+    const response = await getAllTransaction(userEmail);
     const data = response.data.filter(
       (tran) => tran.TransactionType === "income"
     );
     setResult(data);
     if (chartRef.current) {
-    chartRef.current.destroy();
-  }
+      chartRef.current.destroy();
+    }
 
   // Create new chart and store reference
-  chartRef.current = new Chart(document.getElementById("bar-income-page"), {
+    chartRef.current = new Chart(document.getElementById("bar-income-page"), {
       type: "bar",
       data: {
         labels: data.map((row) => {
@@ -53,7 +55,7 @@ const IncomePage = () => {
     try {
       if (source !== "" && amount > 0) {
         const res = await getAddIncome({
-          email: "aarchi@gmail.com",
+          email: userEmail,
           IncomeSource: source,
           IncomeAmount: amount,
         });

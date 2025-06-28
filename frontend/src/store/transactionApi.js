@@ -40,6 +40,20 @@ export const transactionApi = createApi({
           body: {email},
         }),
       }),
+    getUserLogin: build.mutation({
+        query: (details) => ({
+          url: '/login',
+          method: 'POST',
+          body: details,
+        }),
+      }),
+    getUserSignup: build.mutation({
+        query: (details) => ({
+          url: '/signup',
+          method: 'POST',
+          body: details,
+        }),
+      }),
     
   }),
 })
@@ -50,4 +64,6 @@ export const {
     useGetAddIncomeMutation,
     useGetAddExpenseMutation,
     useGetAllTransactionMutation,
+    useGetUserLoginMutation,
+    useGetUserSignupMutation,
 } = transactionApi;
