@@ -112,7 +112,7 @@ routes.post('/getAllTransaction', async (req, res) =>{
     try {
         const data = await Income_Expenses.findOne({ email });
         if (!data) {
-            return res.status(404).json({ error: "User not found" });
+            return res.json([]);
         }
 
         return res.json(data.transaction);

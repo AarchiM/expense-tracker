@@ -73,7 +73,6 @@ const IncomePage = () => {
 
   useEffect(() =>
   {
-    if(!newUser && result != [])
     BarChartJs();
   }, []);
 
@@ -81,7 +80,6 @@ const IncomePage = () => {
 
   return (
     <div className="p-5 acquisitions flex flex-col gap-5">
-      {(!newUser && result != [])  ? <>
       <div className=" flex flex-col items-center justify-center">
         <h1 className="font-bold text-left">Income Overview</h1>
         <div className="w-full">
@@ -90,6 +88,8 @@ const IncomePage = () => {
       </div>
       <h1 className="p-2 font-bold">Last 30 days Expanses</h1>
       <div className="p-5 w-full flex md:flex-row flex-col gap-10 md:gap-20">
+        {
+          result?.length > 0 ?
         <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
           {result?.map((row) => {
             const date = new Date(row?.createdAt);
@@ -116,7 +116,11 @@ const IncomePage = () => {
               </div>
             );
           })}
-        </div>
+            </div> :
+            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
+              <p>No Income Data Found</p>
+              </div>
+        }
         <div className="p-5 md:w-1/3 w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-secondary_dark">
           <div>
             <h1 className="font-bold text-center">..Add Your Income..</h1>
@@ -146,36 +150,7 @@ const IncomePage = () => {
           </div>
         </div>
         </div>
-      </>
-        :
-        <div className="p-5 w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-secondary_dark">
-          <div>
-            <h1 className="font-bold text-center">..Add Your Income..</h1>
-            <hr />
-          </div>
-          <div className="flex flex-col gap-3 w-full">
-            <label className="font-bold">Income Source: </label>
-            <input
-              className="bg-transparent w-full p-2 border border-gray-700"
-              placeholder="Enter here..."
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-            />
-            <label className="font-bold">Income Amount: </label>
-            <input
-              className="bg-transparent w-full p-2 border border-gray-700"
-              placeholder="Enter here..."
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <button
-              className="bg-primary_blue rounded-lg p-2"
-              onClick={HandleAddIncome}
-            >
-              Add Income
-            </button>
-          </div>
-        </div>}
+      
     </div>
   );
 };
