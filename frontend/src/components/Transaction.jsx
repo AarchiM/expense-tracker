@@ -1,22 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { HiArrowTrendingDown, HiArrowTrendingUp } from "react-icons/hi2";
-import { useGetAllTransactionMutation } from "../store/transactionApi";
+import { useGetAllTransactionMutation, useGetTransactionAmountMutation } from "../store/transactionApi";
 
 const Transaction = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
+  const [getTransactionAmount] = useGetTransactionAmountMutation();
   const [transaction, setTransaction] = useState();
+  const userEmail = JSON.parse(localStorage.getItem('email'))
+  const heading = "Total Expense";
 
   const getData = async () => {
     try
     {
-      const userEmail = JSON.parse(localStorage.getItem('email'))
       const result = await getAllTransaction(userEmail);
       setTransaction(result.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const PieChart = async () => {
+      const result = await getTransactionAmount(userEmail).unwrap(); 
+      const data = {
+        labels: ["Balance", "Income", "Expenses"],
+        datasets: [
+          {
+            label: "Financial Overview",
+            data: [result.totalBalance, result.totalIncome, result.totalExpense],
+            backgroundColor: [
+              "rgb(30, 16, 93)",
+              "rgb(21, 42, 181)",
+              "rgb(95, 77, 168)",           
+            ],
+            hoverOffset: 4,
+          },
+        ],
+      };
+      new Chart(document.getElementById("acquisitions"), {
+        type: "doughnut",
+        data: data,
+      });
+    };
+  
+    useEffect(() => {
+      PieChart();
+    }, []);
+
   useEffect(() => {
     getData();
   }, []);
@@ -26,10 +56,10 @@ const Transaction = () => {
       <div className="lg:w-1/2 flex flex-col items-center justify-center rounded">
         <h1 className="font-bold text-left">Financial Overview</h1>
         <div className="w-1/2 ">
-          <canvas id="acquisitions" className="acquisitions"></canvas>
+          <canvas id="acquisitions" height={100} className="acquisitions"></canvas>
         </div>
       </div>
-      <div className="p-5 lg:w-1/2 shadow rounded bg-white dark:bg-secondary_dark h-[370px]">
+      <div className="p-5 lg:w-1/2 shadow rounded dark:bg-secondary-dark)] bg-white h-[370px]">
         <h1 className="p-2 font-bold">Your Transaction History</h1>
         <hr />
         <div className="flex flex-col p-3 h-[270px] overflow-auto">

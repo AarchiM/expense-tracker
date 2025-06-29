@@ -7,44 +7,38 @@ import Income from "../components/Income";
 import {
   useGetTransactionAmountMutation
 } from "../store/transactionApi.js"
+import { useNavigate } from "react-router-dom";
 
 
 const HomeDashboard = () => {
   const [getTransactionAmount] = useGetTransactionAmountMutation();
-  const heading = "Total Expense";
   const userName = JSON.parse(localStorage.getItem('name'));
   const userEmail = JSON.parse(localStorage.getItem('email'));
-  
-  const [result, setResult] = useState();
+  const navigate = useNavigate();
+  const [result, setResult] = useState({
+    totalBalance: 0,
+    totalExpense: 0,
+    totalIncome: 0
+  });
 
-  const PieChart = async () => {
-    const result = await getTransactionAmount(userEmail).unwrap(); 
-    setResult(result);
-    const data = {
-      labels: ["Balance", "Income", "Expenses"],
-      datasets: [
+  const getData = async () =>
+  {
+    try {
+      const result = await getTransactionAmount(userEmail).unwrap(); 
+      setResult(result);
+      if (result.totalIncome == 0 && result.totalExpense == 0 && result.totalExpense == 0)
         {
-          label: "Financial Overview",
-          data: [result.totalBalance, result.totalIncome, result.totalExpense],
-          backgroundColor: [
-            "rgb(30, 16, 93)",
-            "rgb(21, 42, 181)",
-            "rgb(95, 77, 168)",           
-          ],
-          hoverOffset: 4,
-        },
-      ],
-    };
-    new Chart(document.getElementById("acquisitions"), {
-      type: "doughnut",
-      data: data,
-    });
-  };
+          localStorage.setItem('newUser', JSON.stringify(true))
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    PieChart();
+    getData();
   }, []);
-
+  
   return (
     <div className="">
       <div className="flex flex-col gap-5">
@@ -69,15 +63,44 @@ const HomeDashboard = () => {
             <p>INR {result?.totalBalance}</p>
           </div>
         </div>
-        <div>
+
+        {(result.totalExpense !== 0 && result.totalIncome !== 0) && <div>
           <Transaction />
-        </div>
-        <div>
-          <Expenses />
-        </div>
-        <div>
-          <Income />
-        </div>
+        </div>}
+        {result.totalExpense != 0 &&
+          <div>
+            <Expenses />
+          </div>}
+        {result.totalIncome != 0 &&
+          <div>
+            <Income />
+          </div>}
+
+        {
+          (result.totalIncome == 0 && result.totalExpense == 0 && result.totalExpense == 0) &&
+          <div className="text-center p-6 bg-creambg dark:bg-primary_dark rounded shadow">
+            <h2 className="text-2xl font-bold text-primary_blue dark:text-creambg mb-2">
+              Welcome to ExpenseFlow, your personal finance assistant!
+            </h2>
+            <p className="text-secondary_dark dark:text-border_light mb-4">
+              You haven't added any income or expenses yet. Let's get started and take control of your money.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <button
+                className="px-4 py-2 bg-primary_blue text-white rounded hover:bg-decrement transition"
+                onClick={() => navigate('/income')}
+              >
+                + Add Income
+              </button>
+              <button
+                className="px-4 py-2 bg-primary_blue text-white rounded hover:bg-increment transition"
+                onClick={() => navigate('/expenses')}
+              >
+                + Add Expense
+              </button>
+            </div>
+          </div>
+        } 
       </div>
     </div>
   );

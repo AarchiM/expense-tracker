@@ -23,11 +23,12 @@ const Navbar = () =>
     localStorage.removeItem('email')
     localStorage.removeItem('Authtoken')
     localStorage.removeItem('name')
+    localStorage.removeItem('newUser')
     setLoggedIn(false);
     navigate('/');
   }
   return (
-    <div className="sticky top-0 dark:bg-primary_dark dark:text-white shadow-md dark:shadow-gray-900 flex justify-between p-5">
+    <div className="sticky top-0 dark:bg-primary_dark shadow-md dark:shadow-gray-900 flex justify-between p-5 text-gray-600 dark:text-gray-300">
         <div className="flex flex-row gap-10">
         <div className="px-1 border-black dark:border-border_light border rounded-xl">
             <h1>ET</h1>

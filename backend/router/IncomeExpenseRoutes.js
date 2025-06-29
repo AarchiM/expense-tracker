@@ -93,7 +93,7 @@ routes.post('/userInfo', async (req, res) =>
     try {
         const data = await Income_Expenses.findOne({ email });
         if (!data) {
-            return res.status(404).json({ error: "User not found" });
+            return res.json({totalIncome :0, totalExpense: 0, totalBalance: 0});;
         }
         const totalIncome = (data??[]).transaction.reduce((acc, amount) => {return amount.TransactionType === 'income' ? acc + amount.TransactionAmount: acc + 0}, 0);
         const totalExpense = (data??[]).transaction.reduce((acc, amount) => {return amount.TransactionType === 'expense' ? acc + amount.TransactionAmount: acc+0}, 0);

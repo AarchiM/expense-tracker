@@ -44,11 +44,7 @@ const Expenses = () => {
 
   useEffect(() => {
     BarChartJs();
-  }, []);
-
-  console.log("transactions: ",typeof transactions);
-  // console.log("transactions: ",transactions.length);
-  
+  }, []);  
 
   return (
     <div className="p-5 acquisitions flex flex-col lg:flex-row gap-5">
