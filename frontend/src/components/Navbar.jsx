@@ -39,12 +39,13 @@ const Navbar = () =>
                 <li><Link to='/expenses'>Expenses</Link></li>
             </ul>
       </div>
+      <div className="flex gap-5 justify-center">
       {loggedIn ?<div>
         <button onClick={HandleLogoutUser}>
           Logout
         </button>
       </div>:<></>}
-        <div className="border px-1 flex justify-center rounded-xl">
+      <div className="border px-1 rounded-xl">
             {mode === "light" ? (
             <button onClick={() => dispatch(darkMode())}>
             <MdDarkMode />
@@ -55,6 +56,7 @@ const Navbar = () =>
             </button>
         )}
         </div>
+      </div>
     </div>
   );
 };
