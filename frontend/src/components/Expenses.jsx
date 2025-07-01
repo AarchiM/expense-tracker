@@ -49,7 +49,7 @@ const Expenses = () => {
   return (
     <div className="p-5 acquisitions flex flex-col lg:flex-row gap-5">
       <div className="p-5 lg:w-1/2 shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
-        <h1 className="p-2 font-bold">Last 30 days Expanses</h1>
+        <h1 className="p-2 font-bold">Last 30 days Expenses</h1>
         <hr />
         <div className="flex flex-col p-3">
           {transactions
@@ -87,7 +87,7 @@ const Expenses = () => {
         }
       </div>
       <div className="lg:w-1/2 flex flex-col items-center justify-center">
-        <h1 className="font-bold text-left">Your Expanses</h1>
+        <h1 className="font-bold text-left">Your Expenses</h1>
         <div className="w-full">
           <canvas id="bar-expenses" className="h-full"></canvas>
         </div>

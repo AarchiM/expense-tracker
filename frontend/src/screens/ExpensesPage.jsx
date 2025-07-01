@@ -143,7 +143,7 @@ const ExpensesPage = () =>
           <canvas id="bar-expenses-page" height={100} className=""></canvas>
         </div>
       </div>
-      <h1 className="p-2 font-bold">Last 30 days Expanses</h1>
+      <h1 className="p-2 font-bold">Last 30 days Expenses</h1>
       <div className="p-5 w-full flex md:flex-row flex-col gap-10 md:gap-20">
         {
           result?.length > 0 ?
@@ -201,7 +201,7 @@ const ExpensesPage = () =>
               onChange={(e) => setAmount(e.target.value)}
             />
             <button
-              className="bg-[var(--primary_blue)] rounded-lg p-2"
+              className="bg-[var(--primary_blue)] text-gray-200 rounded-lg p-2"
               onClick={HandleAddExpense}
             >
               Add Expense

@@ -49,16 +49,16 @@ const HomeDashboard = () => {
           <p>Hello {userName}, Welcome</p>
         </div>
         {/* <hr className="border border-[1px solid red]" /> */}
-        <div className="flex justify-between gap-6 p-5 ">
-          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
+        <div className="flex flex-col md:flex-row justify-between gap-6 p-5 ">
+          <div className="p-5 items-center flex flex-col w-full md:w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
             <h1>Total Income</h1>
             <p>INR {result?.totalIncome}</p>
           </div>
-          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
+          <div className="p-5 items-center flex flex-col w-full md:w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
             <h1>Total Expenses</h1>
             <p>INR {result?.totalExpense}</p>
           </div>
-          <div className="p-5 items-center flex flex-col w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
+          <div className="p-5 items-center flex flex-col w-full md:w-1/3 shadow dark:bg-[var(--secondary_dark)] bg-white rounded-lg">
             <h1>Current Balance</h1>
             <p>INR {result?.totalBalance}</p>
           </div>

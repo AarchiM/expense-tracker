@@ -24,8 +24,13 @@ const Login = () =>
         email, password
       })
             
-      if(response.error){
-        alert(`⚠ ${response.error.data.message} Please Sign Up`);
+      if(response.error.data.msg){
+        alert(`⚠ ${response.error.data.msg}`);
+        return;
+      }
+      
+      if(response.error.data.errors[0].msg){
+        alert(`⚠ ${response.error.data.errors[0].msg} Please Sign Up`);
         return;
       }
       

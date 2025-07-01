@@ -143,7 +143,7 @@ const IncomePage = () => {
               onChange={(e) => setAmount(e.target.value)}
             />
             <button
-              className="bg-[var(--primary_blue)] rounded-lg p-2"
+              className="bg-[var(--primary_blue)] text-gray-200 rounded-lg p-2"
               onClick={HandleAddIncome}
             >
               Add Income
