@@ -4,6 +4,8 @@ import { HiArrowTrendingUp } from "react-icons/hi2";
 import { useGetAllTransactionMutation } from "../store/transactionApi";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
+import {Chart} from 'chart.js/auto';
+
 
 const Income = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
@@ -55,7 +57,7 @@ const Income = () => {
           <canvas id="incomechart" height={100} className="acquisitions"></canvas>
         </div>
       </div>
-      <div className="p-5 lg:w-1/2 shadow rounded dark:bg-secondary_dark bg-white">
+      <div className="p-5 lg:w-1/2 shadow rounded dark:bg-[var(--secondary_dark)] bg-white">
         <h1 className="p-2 font-bold">Your Income History</h1>
         <hr />
         <div className="flex flex-col p-3">
@@ -74,7 +76,7 @@ const Income = () => {
                     <p>{formatted}</p>
                   </div>
                 </div>
-                <h1 className="font-bold flex items-center gap-2 h-1/2 bg-increment dark:text-black rounded-lg px-2">
+                <h1 className="font-bold flex items-center gap-2 h-1/2 bg-[var(--increment)] dark:text-black rounded-lg px-2">
                   ₹ {row.TransactionAmount} <HiArrowTrendingUp />
                 </h1>
               </div>

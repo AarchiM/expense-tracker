@@ -3,6 +3,7 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { HiArrowTrendingDown } from "react-icons/hi2";
 import { useGetAddExpenseMutation, useGetAllTransactionMutation, useGetTransactionAmountMutation } from "../store/transactionApi";
 import AlertModal from "../components/AlertModal";
+import {Chart} from 'chart.js/auto';
 
 const ExpensesPage = () =>
 {
@@ -146,7 +147,7 @@ const ExpensesPage = () =>
       <div className="p-5 w-full flex md:flex-row flex-col gap-10 md:gap-20">
         {
           result?.length > 0 ?
-            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
+            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
               {result?.map((row) =>
               {
                 const date = new Date(row?.createdAt);
@@ -167,7 +168,7 @@ const ExpensesPage = () =>
                         <p>{formatted}</p>
                       </div>
                     </div>
-                    <h1 className="font-bold flex items-center gap-2 dark:text-black h-1/2 bg-increment rounded-lg px-2">
+                    <h1 className="font-bold flex items-center gap-2 dark:text-black h-1/2 bg-[var(--increment)] rounded-lg px-2">
                       ₹ {row.TransactionAmount} <HiArrowTrendingDown />
                     </h1>
                   </div>
@@ -175,11 +176,11 @@ const ExpensesPage = () =>
               })}
             </div>
             :
-            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
-              <p className="text-gray-600">No Expense Data Found</p>
+            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
+              <p>No Expense Data Found</p>
             </div>
         }
-        <div className="p-5 md:w-1/3 sm:w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-secondary_dark">
+        <div className="p-5 md:w-1/3 sm:w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
           <div>
             <h1 className="font-bold text-center">..Add Your Expense..</h1>
             <hr />
@@ -200,7 +201,7 @@ const ExpensesPage = () =>
               onChange={(e) => setAmount(e.target.value)}
             />
             <button
-              className="bg-primary_blue rounded-lg p-2"
+              className="bg-[var(--primary_blue)] rounded-lg p-2"
               onClick={HandleAddExpense}
             >
               Add Expense

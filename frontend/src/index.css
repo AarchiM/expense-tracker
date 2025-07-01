@@ -1,3 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --primary_dark: rgb(31, 31, 31);
+  --primary_blue: rgb(30, 16, 93);
+  --secondary_dark: rgb(52, 52, 52);
+  --border_light: #e5e7eb;
+  --primary_pink: #FF6384;
+  --decrement: rgb(243, 180, 193);
+  --increment: rgb(188, 243, 180);
+  --creambg: rgb(249, 245, 245);
+}

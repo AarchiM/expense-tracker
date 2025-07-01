@@ -13,9 +13,22 @@ const Login = () =>
   const HandleLoginUser = async () =>
   {
     try {
+      if(email == ""){
+        alert("⚠ Please Enter Email!!")
+        return;
+      }else if(password == ""){
+        alert("⚠ Please Enter Password!!")
+        return;
+      }
       const response = await getUserLogin({
         email, password
       })
+            
+      if(response.error){
+        alert(`⚠ ${response.error.data.message} Please Sign Up`);
+        return;
+      }
+      
       localStorage.setItem('Authtoken',JSON.stringify(response?.data.Authtoken))
       localStorage.setItem('email', JSON.stringify(email));
       localStorage.setItem('name', JSON.stringify(response?.data.name));
@@ -26,7 +39,7 @@ const Login = () =>
   }
 
   return (
-    <div className='m-auto flex justify-center items-center w-[400px] h-[600px] text-gray-600 dark:text-gray-300'>
+    <div className='m-auto flex justify-center items-center w-[400px] h-[600px] text-gray-700'>
     <div className="p-10 shadow-md flex gap-5 flex-col dark:border dark:border-gray-700 w-full">
       <h2 className="text-center font-bold">Login</h2>
       <div>

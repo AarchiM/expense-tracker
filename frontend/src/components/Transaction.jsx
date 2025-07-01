@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { HiArrowTrendingDown, HiArrowTrendingUp } from "react-icons/hi2";
 import { useGetAllTransactionMutation, useGetTransactionAmountMutation } from "../store/transactionApi";
+import {Chart} from 'chart.js/auto';
 
 const Transaction = () => {
   const [getAllTransaction] = useGetAllTransactionMutation();
@@ -59,7 +60,7 @@ const Transaction = () => {
           <canvas id="acquisitions" height={100} className="acquisitions"></canvas>
         </div>
       </div>
-      <div className="p-5 lg:w-1/2 shadow rounded dark:bg-secondary-dark)] bg-white h-[370px]">
+      <div className="p-5 lg:w-1/2 shadow rounded dark:bg-[var(--secondary_dark)] bg-white h-[370px]">
         <h1 className="p-2 font-bold">Your Transaction History</h1>
         <hr />
         <div className="flex flex-col p-3 h-[270px] overflow-auto">
@@ -80,7 +81,7 @@ const Transaction = () => {
                     <p>{formatted}</p>
                   </div>
                 </div>
-                <h1 className={`font-bold flex items-center gap-2 h-1/2 ${tran?.TransactionType == 'expense' ? "bg-decrement" : "bg-increment"} dark:text-black rounded-lg px-2`}>
+                <h1 className={`font-bold flex items-center gap-2 h-1/2 ${tran?.TransactionType == 'expense' ? "bg-[var(--decrement)]" : "bg-[var(--increment)]"} dark:text-black rounded-lg px-2`}>
                   ₹ {tran?.TransactionAmount} {tran?.TransactionType == 'expense' ? <HiArrowTrendingDown />: <HiArrowTrendingUp/>}
                 </h1>
               </div>

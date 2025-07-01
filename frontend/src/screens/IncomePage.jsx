@@ -5,6 +5,7 @@ import {
   useGetAddIncomeMutation,
   useGetAllTransactionMutation,
 } from "../store/transactionApi";
+import {Chart} from 'chart.js/auto';
 
 const IncomePage = () => {
   const heading = "Total Income";
@@ -86,11 +87,11 @@ const IncomePage = () => {
           <canvas id="bar-income-page" height={100} className=""></canvas>
         </div>
       </div>
-      <h1 className="p-2 font-bold">Last 30 days Expanses</h1>
+      <h1 className="p-2 font-bold">Last 30 days Income</h1>
       <div className="p-5 w-full flex md:flex-row flex-col gap-10 md:gap-20">
         {
           result?.length > 0 ?
-        <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
+        <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
           {result?.map((row) => {
             const date = new Date(row?.createdAt);
             const formatted = date.toLocaleDateString("en-GB", {
@@ -110,18 +111,18 @@ const IncomePage = () => {
                     <p>{formatted}</p>
                   </div>
                 </div>
-                <h1 className="font-bold flex items-center gap-2 dark:text-black h-1/2 bg-increment rounded-lg px-2">
+                <h1 className="font-bold flex items-center gap-2 dark:text-black h-1/2 bg-[var(--increment)] rounded-lg px-2">
                   ₹ {row.TransactionAmount} <HiArrowTrendingUp />
                 </h1>
               </div>
             );
           })}
             </div> :
-            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-secondary_dark">
+            <div className="flex flex-col p-5 md:w-2/3 w-full shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
               <p>No Income Data Found</p>
               </div>
         }
-        <div className="p-5 md:w-1/3 w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-secondary_dark">
+        <div className="p-5 md:w-1/3 w-full flex flex-col gap-5 shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
           <div>
             <h1 className="font-bold text-center">..Add Your Income..</h1>
             <hr />
@@ -142,7 +143,7 @@ const IncomePage = () => {
               onChange={(e) => setAmount(e.target.value)}
             />
             <button
-              className="bg-primary_blue rounded-lg p-2"
+              className="bg-[var(--primary_blue)] rounded-lg p-2"
               onClick={HandleAddIncome}
             >
               Add Income

@@ -48,7 +48,7 @@ const Expenses = () => {
 
   return (
     <div className="p-5 acquisitions flex flex-col lg:flex-row gap-5">
-      <div className="p-5 lg:w-1/2 shadow rounded bg-white dark:bg-secondary_dark">
+      <div className="p-5 lg:w-1/2 shadow rounded bg-white dark:bg-[var(--secondary_dark)]">
         <h1 className="p-2 font-bold">Last 30 days Expanses</h1>
         <hr />
         <div className="flex flex-col p-3">
@@ -68,7 +68,7 @@ const Expenses = () => {
                       <p>51%</p>
                     </div>
                   </div>
-                  <h1 className="font-bold flex items-center dark:text-black gap-2 h-1/2 bg-decrement rounded-lg px-2">
+                  <h1 className="font-bold flex items-center dark:text-black gap-2 h-1/2 bg-[var(--decrement)] rounded-lg px-2">
                     ₹ {tran.TransactionAmount} <HiArrowTrendingDown />
                   </h1>
                 </div>
