@@ -13,7 +13,7 @@ const Login = () =>
   const HandleLoginUser = async () =>
   {
     try {
-      if(email == ""){
+            if(email == ""){
         alert("⚠ Please Enter Email!!")
         return;
       }else if(password == ""){
@@ -24,16 +24,11 @@ const Login = () =>
         email, password
       })
             
-      if(response.error.data.msg){
-        alert(`⚠ ${response.error.data.msg}`);
+      if(response.error){
+        alert(`⚠ Enter correct Email or Password`);
         return;
       }
-      
-      if(response.error.data.errors[0].msg){
-        alert(`⚠ ${response.error.data.errors[0].msg} Please Sign Up`);
-        return;
-      }
-      
+            
       localStorage.setItem('Authtoken',JSON.stringify(response?.data.Authtoken))
       localStorage.setItem('email', JSON.stringify(email));
       localStorage.setItem('name', JSON.stringify(response?.data.name));
