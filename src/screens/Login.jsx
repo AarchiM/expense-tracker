@@ -46,7 +46,7 @@ const Login = () =>
         <h1>Email</h1>
         <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="border w-full focus:outline-none py-1 px-3" />
         <h1>Password</h1>
-        <input type="text" value={password} onChange={(e)=>setPassword(e.target.value)} className="border w-full focus:outline-none py-1 px-3" />
+        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="border w-full focus:outline-none py-1 px-3" />
         <p className="text-blue-800 flex justify-end text-xs">forgot Password?</p>
 
       </div>
