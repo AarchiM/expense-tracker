@@ -66,7 +66,7 @@ const SignUp = () => {
           />
           <h1>Password</h1>
           <input
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border w-full focus:outline-none py-1 px-3"
