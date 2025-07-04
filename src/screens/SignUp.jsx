@@ -46,7 +46,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="m-auto flex justify-center items-center w-[400px] h-[600px] text-gray-600 dark:text-gray-300">
+    <div className="m-auto flex justify-center items-center w-[400px] h-[600px] text-gray-600 dark:text-gray-600">
       <div className="p-10 shadow-md flex gap-5 flex-col dark:border dark:border-gray-700 w-full">
         <h2 className="text-center font-bold">Sign up</h2>
         <div>
